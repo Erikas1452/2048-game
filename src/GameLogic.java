@@ -1,3 +1,5 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.util.ArrayList;
 
 
@@ -28,7 +30,7 @@ public class GameLogic {
 
     }
 
-    public static void moveTiles(Board gameBoard, char direction)
+    public static boolean moveTiles(Board gameBoard, char direction, Board prevMove, Boolean undo)
     {
         Tile allTiles [][] = gameBoard.getTiles();
         Tile original [][] = new Tile[4][4];
@@ -60,29 +62,26 @@ public class GameLogic {
             case 'D':
                 for (int i = 0; i < gameBoard.getSize(); i++) {
                     moveRight(i, gameBoard.getSize(), allTiles);
-                    ;
                 }
                 break;
-        }
-
-        for(int i = 0; i < 4; i++)
-        {
-            for(int j = 0; j < 4; j++)
-            {
-                System.out.print(allTiles[i][j].getValue());
-            }
-            System.out.println();
         }
 
         if(isChanged(original,allTiles, gameBoard.getSize()))
         {
             gameBoard.setTiles(allTiles);
             generateRandomTile(gameBoard);
+            prevMove.setTiles(original);
+
+            undo = true;
+            return undo;
         }
         else
         {
             gameBoard.setTiles(original);
             System.out.println("Can't Move anything this direction");
+
+            undo = false;
+            return undo;
         }
 
     }
@@ -108,13 +107,11 @@ public class GameLogic {
             {
                 if(k-1 != -1 && (tiles[k-1][column].getValue() == 0))
                 {
-                    System.out.println(tiles[k][column].getValue());
                     tiles[k-1][column].setValue(tiles[k][column].getValue());
                     tiles[k][column].setValue(0);
                 }
                 else if (k-1 != -1 && tiles[k-1][column].getValue() == tiles[k][column].getValue())
                 {
-                    System.out.println(tiles[k][column].getValue());
                     tiles[k-1][column].multiplyValue(2);
                     tiles[k][column].setValue(0);
 
@@ -193,6 +190,19 @@ public class GameLogic {
                 }
                 else break;
             }
+        }
+    }
+
+    public static void undoMove(Board gameBoard, Board prevMove)
+    {
+        gameBoard.setTiles(prevMove.getTiles());
+        for(int i = 0 ; i < 4; i++)
+        {
+            for(int j = 0; j < 4; j++)
+            {
+                System.out.print(prevMove.getTiles()[i][j].getValue());
+            }
+            System.out.println(" ");
         }
     }
 

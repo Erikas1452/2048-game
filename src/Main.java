@@ -1,5 +1,7 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.scene.Parent;
 
+import javax.swing.text.StyledEditorKit;
 import java.awt.event.KeyEvent;
 import java.util.EventListener;
 import java.util.Scanner;
@@ -12,6 +14,9 @@ public class Main {
         Board defaultBoard = new Board(4);
         GameLogic.generateRandomTile(defaultBoard);
         GameLogic.generateRandomTile(defaultBoard);
+        boolean undo = false;
+        Board prevMove = new Board(4);
+
 
         while (!gameOver)
         {
@@ -46,24 +51,30 @@ public class Main {
 
                 switch (Character.toUpperCase(move)) {
                     case 'W':
-                        System.out.println("UP");
                         input = true;
-                        GameLogic.moveTiles(defaultBoard,'W');
+                        undo = GameLogic.moveTiles(defaultBoard,'W',prevMove,undo);
                         break;
                     case 'S':
-                        System.out.println("DOWN");
                         input = true;
-                        GameLogic.moveTiles(defaultBoard,'S');
+                        undo = GameLogic.moveTiles(defaultBoard,'S',prevMove,undo);
                         break;
                     case 'A':
-                        System.out.println("LEFT");
                         input = true;
-                        GameLogic.moveTiles(defaultBoard,'A');
+                        undo = GameLogic.moveTiles(defaultBoard,'A',prevMove,undo);
                         break;
                     case 'D':
-                        System.out.println("RIGHT");
                         input = true;
-                        GameLogic.moveTiles(defaultBoard,'D');
+                        undo = GameLogic.moveTiles(defaultBoard,'D',prevMove,undo);
+                        break;
+                    case 'U':
+                        input = true;
+                        if(undo == true)
+                        {
+                            System.out.println("UNDOING MOVE");
+                            GameLogic.undoMove(defaultBoard,prevMove);
+                            undo = false;
+                        }
+                        else System.out.println("Cant undo your move now");
                         break;
                 }
             }
