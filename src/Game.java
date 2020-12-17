@@ -8,7 +8,7 @@ public class Game {
     private int boardSize;
     private Board defaultBoard;
     private Board prevMove;
-    boolean undo;
+    private boolean undo;
 
     public Game(int boardSize) {
         this.gameOver = false;

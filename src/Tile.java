@@ -1,18 +1,9 @@
-public class Tile {
+import com.sun.org.glassfish.external.statistics.annotations.Reset;
 
-    private int value;
+public class Tile extends DefaultTile{
 
     public Tile(int value) {
-        this.value = value;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public void multiplyValue(int multiplyer)
-    {
-        this.value *= multiplyer;
+        super(value);
     }
 
     public void merge(Tile tile)
@@ -21,18 +12,9 @@ public class Tile {
         tile.setValue(0);
     }
 
-    public boolean tilesAreEquel(Tile tile)
-    {
-        if (tile.getValue() == this.value) return true;
-        else return false;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-
+    @Override
     public void displayTile()
     {
-        System.out.format("[%-4d]",value);
+        System.out.format("[%-4d]",this.getValue());
     }
 }
