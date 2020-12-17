@@ -18,26 +18,8 @@ public class MoveLeft implements Command{
         for (int row = 0; row < gameBoard.getSize(); row++) {
             moveLeft(row, gameBoard.getSize(), allTiles);
         }
-
-        boolean undo = false;
-
-        if(BoardLogic.isChanged(original,allTiles, gameBoard.getSize()))
-        {
-            gameBoard.setTiles(allTiles);
-            BoardLogic.generateRandomTile(gameBoard);
-            prevMove.setTiles(original);
-
-            undo = true;
-            return undo;
-        }
-        else
-        {
-            gameBoard.setTiles(original);
-            System.out.println("Can't Move anything this direction");
-
-            undo = false;
-            return undo;
-        }
+        boolean undo = BoardLogic.updateBoards(gameBoard,prevMove,original,allTiles);
+        return undo;
     }
 
     private void moveLeft(int row, int size, Tile tiles[][])

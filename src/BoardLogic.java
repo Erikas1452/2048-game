@@ -73,4 +73,27 @@ public class BoardLogic {
 
     }
 
+    public static boolean updateBoards(Board gameBoard, Board prevMove, Tile[][] original, Tile[][]allTiles)
+    {
+        boolean undo = false;
+
+        if(BoardLogic.isChanged(original,allTiles, gameBoard.getSize()))
+        {
+            gameBoard.setTiles(allTiles);
+            BoardLogic.generateRandomTile(gameBoard);
+            prevMove.setTiles(original);
+
+            undo = true;
+            return undo;
+        }
+        else
+        {
+            gameBoard.setTiles(original);
+            System.out.println("Can't Move anything this direction");
+
+            undo = true;
+            return undo;
+        }
+    }
+
 }

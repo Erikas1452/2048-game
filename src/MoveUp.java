@@ -18,27 +18,8 @@ public class MoveUp implements Command{
         for (int column = 0; column < gameBoard.getSize(); column++) {
             moveUP(column, gameBoard.getSize(), allTiles);
         }
-
-        boolean undo = false;
-
-        if(BoardLogic.isChanged(original,allTiles, gameBoard.getSize()))
-        {
-            gameBoard.setTiles(allTiles);
-            BoardLogic.generateRandomTile(gameBoard);
-            prevMove.setTiles(original);
-
-            undo = true;
-            return undo;
-        }
-        else
-        {
-            gameBoard.setTiles(original);
-            System.out.println("Can't Move anything this direction");
-
-            undo = false;
-            return undo;
-        }
-
+        boolean undo = BoardLogic.updateBoards(gameBoard,prevMove,original,allTiles);
+        return undo;
     }
 
     private static void moveUP(int column, int size, Tile tiles[][])
