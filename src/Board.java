@@ -75,4 +75,23 @@ public class Board {
         System.out.print("\n");
     }
 
+    public Board copyBoard()
+    {
+        Tile originalTiles [][] = this.getTiles();
+        Tile copyTiles [][] = new Tile[this.getSize()][this.getSize()];
+
+        for(int i = 0; i < this.getSize(); i++)
+        {
+            for(int j = 0; j < this.getSize(); j++)
+            {
+                copyTiles[i][j] = new Tile(originalTiles[i][j].getValue());
+            }
+        }
+
+        Board copy = new Board(this.getSize());
+        copy.setTiles(copyTiles);
+
+        return copy;
+    }
+
 }

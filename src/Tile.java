@@ -1,11 +1,9 @@
 public class Tile {
 
     private int value;
-    private boolean mergable;
 
     public Tile(int value) {
         this.value = value;
-        mergable = true;
     }
 
     public int getValue() {
@@ -17,18 +15,16 @@ public class Tile {
         this.value *= multiplyer;
     }
 
-    public void enableMerging()
+    public void merge(Tile tile)
     {
-        this.mergable = true;
+        this.multiplyValue(2);
+        tile.setValue(0);
     }
 
-    public void dissableMerging()
+    public boolean tilesAreEquel(Tile tile)
     {
-        this.mergable = false;
-    }
-
-    public boolean isMergable() {
-        return mergable;
+        if (tile.getValue() == this.value) return true;
+        else return false;
     }
 
     public void setValue(int value) {
