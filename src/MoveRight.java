@@ -10,6 +10,11 @@ public class MoveRight implements Command {
 
     @Override
     public boolean execute() {
+        return moveRows();
+    }
+
+    private boolean moveRows()
+    {
         Board copy = gameBoard.copyBoard();
 
         Tile allTiles [][] = gameBoard.getTiles();

@@ -20,9 +20,9 @@ public class Game {
 
     public void startGame()
     {
-        Board defaultBoard = new Board(4);
         BoardLogic.generateRandomTile(defaultBoard);
         BoardLogic.generateRandomTile(defaultBoard);
+        prevMove = defaultBoard.copyBoard();
 
         while (!gameOver)
         {

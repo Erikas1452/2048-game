@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BoardLogicTest {
 
     @Test
-    void gameOverTests()
+    void gameOverTest()
     {
         Board gameBoard = new Board(4);
 

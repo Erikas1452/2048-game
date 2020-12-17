@@ -10,6 +10,11 @@ public class MoveUp implements Command{
 
     @Override
     public boolean execute() {
+        return moveColumns();
+    }
+
+    private boolean moveColumns()
+    {
         Board copy = gameBoard.copyBoard();
 
         Tile allTiles [][] = gameBoard.getTiles();

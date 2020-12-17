@@ -10,7 +10,11 @@ public class MoveDown implements Command{
 
     @Override
     public boolean execute() {
+        return moveColumns();
+    }
 
+    private boolean moveColumns()
+    {
         Board copy = gameBoard.copyBoard();
 
         Tile allTiles [][] = gameBoard.getTiles();
@@ -19,8 +23,6 @@ public class MoveDown implements Command{
         for (int column = 0; column < gameBoard.getSize(); column++) {
             moveDown(column, gameBoard.getSize(), allTiles);
         }
-
-
         boolean undo = BoardLogic.updateBoards(gameBoard,prevMove,original,allTiles);
         return undo;
     }

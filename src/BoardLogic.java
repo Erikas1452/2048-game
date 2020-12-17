@@ -47,25 +47,26 @@ public class BoardLogic {
     {
         Board copy = gameBoard.copyBoard();
         Board prevMove = new Board(gameBoard.getSize());
-
-        Tile allTiles [][] = copy.getTiles();
-        Tile original [][] = gameBoard.getTiles();
+        prevMove = gameBoard.copyBoard();
 
         MoveLeft leftCommand = new MoveLeft(copy,prevMove);
+        leftCommand.execute();
+        if(isChanged(copy.getTiles(),prevMove.getTiles(),copy.getSize())) return true;
 
-        if(leftCommand.execute()) return true;
-
+        copy = gameBoard.copyBoard();
         MoveUp upCommand = new MoveUp(copy,prevMove);
+        upCommand.execute();
+        if(isChanged(copy.getTiles(),prevMove.getTiles(),copy.getSize())) return true;
 
-        if(upCommand.execute()) return true;
-
+        copy = gameBoard.copyBoard();
         MoveDown downCommand = new MoveDown(copy,prevMove);
+        downCommand.execute();
+        if(isChanged(copy.getTiles(),prevMove.getTiles(),copy.getSize())) return true;
 
-        if(downCommand.execute()) return true;
-
+        copy = gameBoard.copyBoard();
         MoveRight moveRight = new MoveRight(copy,prevMove);
-
-        if(moveRight.execute()) return true;
+        moveRight.execute();
+        if(isChanged(copy.getTiles(),prevMove.getTiles(),copy.getSize())) return true;
 
         copy.displayMap();
 
